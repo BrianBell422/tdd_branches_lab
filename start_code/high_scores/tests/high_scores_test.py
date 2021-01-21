@@ -1,43 +1,51 @@
 import unittest
 
-from src.high_scores import HighScores
+from src.high_scores import latest, has_scores, personal_best, return_top_three, highest_to_lowest
 
 # Tests adapted from `problem-specifications//canonical-data.json` @ v4.0.0
 
 
 class HighScoresTest(unittest.TestCase):
 
-    def setUp(self):
-        self.score_list = HighScores([10, 15, 18, 20, 30])
-    
-    # Tests
     def test_has_scores(self):
-        self.assertEqual([10, 15, 18, 20, 30], self.score_list.scores)
+        scores = [100, 0, 90, 30]
+        expected = [100, 0, 90, 30]
+        self.assertEqual(expected, has_scores(scores)) 
 
-    # Test latest score (the last thing in the list)
-    def test_latest_score(self):
-        self.assertEqual(30, self.score_list.latest_score())
+    def test_latest(self):
+        scores = [100, 0, 90, 30]
+        expected = 30
+        self.assertEqual(expected, latest(scores))
 
-    # Test personal best (the highest score in the list)
-    def test_personal_best_scores(self):
-        self.assertEqual(30, self.score_list.personal_best())
+    def test_personal_best(self):
+        scores = [100, 0, 90, 30, 45, 10]
+        expected = 100
+        self.assertEqual(expected, personal_best(scores))
 
+    def test_return_top_three(self):
+        scores = [100, 0, 90, 30, 45, 10]
+        expected = [45, 90, 100]
+        self.assertEqual(expected, return_top_three(scores))
 
-    # Test top three from list of scores
-    def test_personal_top_three(self):
-        self.assertEqual([18, 20, 30], self.score_list.personal_top_three())
-
-    # Test ordered from highest to lowest
     def test_highest_to_lowest(self):
-        self.assertEqual([30, 20, 18, 15, 10], self.score_list.highest_to_lowest())
+        scores = [100, 0, 90, 30, 45, 10]
+        expected = [100, 90, 45, 30, 10, 0]
+        self.assertEqual(expected, highest_to_lowest(scores))
 
-    # Test top three when there is a tie
+    def test_top_three_tie(self):
+        scores = [100, 100, 100, 30, 45, 10]
+        expected = [100, 100, 100]
+        self.assertEqual(expected, return_top_three(scores))
 
-    # Test top three when there are less than three
+    def test_top_three_less_than_three(self):
+        scores = [100, 90]
+        expected = [90, 100]
+        self.assertEqual(expected, return_top_three(scores))
 
-    # Test top three when there is only one
+    def test_top_three_one(self):
+        scores = [100]
+        expected = [100]
+        self.assertEqual(expected, return_top_three(scores))
 
-
-
-    #
-    
+if __name__ == "__main__":
+    unittest.main()

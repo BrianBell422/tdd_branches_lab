@@ -1,22 +1,21 @@
-class HighScores:
 
-    def __init__(self, scores):
-        self.scores = scores
+def has_scores(scores):
+    return scores
 
-    def latest_score(self):
-        return self.scores.pop(-1)
-  
-    def personal_best(self):
-        return max(self.scores)
-    
-    
-    def personal_top_three(self):
-        self.scores.sort()
-        return self.scores[-3:]
+def latest(scores):
+    return scores[-1]
 
-    def highest_to_lowest(self):
-        self.scores.sort()
-        return self.scores.reverse()
+def personal_best(scores):
+    return max(scores)
+
+def return_top_three(scores):
+    top_three_scores = sorted(scores)
+    return top_three_scores[-3:]
+
+def highest_to_lowest(scores):
+    rev_scores = sorted(scores)
+    rev_scores.reverse()
+    return rev_scores
 
 
 
